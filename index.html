@@ -28,6 +28,18 @@
             <option value="all">全部</option>
           </select>
         </label>
+        <label class="filter-box" for="sortSelect">
+          <span>排序</span>
+          <select id="sortSelect">
+            <option value="default">預設</option>
+            <option value="price-asc">價格由低到高</option>
+            <option value="price-desc">價格由高到低</option>
+          </select>
+        </label>
+        <label class="toggle-box" for="hideSoldCheckbox">
+          <input type="checkbox" id="hideSoldCheckbox" />
+          <span>隱藏已售出</span>
+        </label>
       </section>
 
       <section class="summary-bar">
@@ -39,6 +51,35 @@
           <strong id="wishlistCount">0</strong>
           <span>想買清單</span>
         </div>
+      </section>
+
+      <section class="daily-panel">
+        <div class="section-header">
+          <h2>✨ 每日推薦</h2>
+          <span class="section-subtitle" id="dailyDate"></span>
+        </div>
+        <div id="dailyPicks" class="daily-cards"></div>
+      </section>
+
+      <section class="outfit-panel">
+        <div class="section-header">
+          <h2>🎲 今日穿搭</h2>
+          <span class="section-subtitle">隨機幫你配一套</span>
+        </div>
+        <div id="outfitResult" class="outfit-result">
+          <p class="empty">按下方按鈕，抽一套今天的穿搭吧！</p>
+        </div>
+        <div class="outfit-actions">
+          <button id="drawOutfitBtn" type="button" class="btn-primary">🎲 抽一套穿搭</button>
+        </div>
+      </section>
+
+      <section class="stats-panel">
+        <div class="section-header">
+          <h2>📊 衣櫃統計</h2>
+          <span class="section-subtitle">你的收藏總覽</span>
+        </div>
+        <div id="statsContent" class="stats-content"></div>
       </section>
 
       <section class="tabs-panel">
@@ -71,6 +112,7 @@
           <h2>訂單紀錄</h2>
           <button id="clearOrdersBtn" class="btn-secondary">刪除所有訂單</button>
         </div>
+        <div id="spendingSummary" class="spending-summary"></div>
         <div id="ordersList" class="orders-list"></div>
       </section>
 

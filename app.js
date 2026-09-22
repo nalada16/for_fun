@@ -16,11 +16,24 @@ const clearOrdersBtnEl = document.getElementById('clearOrdersBtn');
 const imageModalEl = document.getElementById('imageModal');
 const modalImageEl = document.getElementById('modalImage');
 const closeModalBtnEl = document.getElementById('closeModalBtn');
+const sortSelectEl = document.getElementById('sortSelect');
+const hideSoldCheckboxEl = document.getElementById('hideSoldCheckbox');
+const drawOutfitBtnEl = document.getElementById('drawOutfitBtn');
+const outfitResultEl = document.getElementById('outfitResult');
+const statsContentEl = document.getElementById('statsContent');
+const dailyPicksEl = document.getElementById('dailyPicks');
+const dailyDateEl = document.getElementById('dailyDate');
+const spendingSummaryEl = document.getElementById('spendingSummary');
 
 let items = [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 let orders = JSON.parse(localStorage.getItem('orders') || '[]');
 let soldItems = JSON.parse(localStorage.getItem('soldItems') || '[]');
+let viewCounts = JSON.parse(localStorage.getItem('viewCounts') || '{}');
+let recommendHistory = JSON.parse(localStorage.getItem('recommendHistory') || '{}');
+const DAILY_PICK_COUNT = 5;
+const MAX_PER_CATEGORY = 2;
+const HISTORY_DAYS = 14;
 let longPressTimer = null;
 let longPressTriggered = false;
 let displayedItemCount = 50;
@@ -42,6 +55,14 @@ function clearOrders() {
 
 function saveSoldItems() {
   localStorage.setItem('soldItems', JSON.stringify(soldItems));
+}
+
+function saveViewCounts() {
+  localStorage.setItem('viewCounts', JSON.stringify(viewCounts));
+}
+
+function saveRecommendHistory() {
+  localStorage.setItem('recommendHistory', JSON.stringify(recommendHistory));
 }
 
 function formatMoney(value) {
@@ -68,11 +89,12 @@ function getWishlistItems() {
     .filter(Boolean);
 }
 
+function getNumericPrice(item) {
+  return Number(String(item.price).replace(/[^\d]/g, '')) || 0;
+}
+
 function calculateTotal(itemsList) {
-  const subtotal = itemsList.reduce((sum, item) => {
-    const numericValue = Number(String(item.price).replace(/[^\d]/g, ''));
-    return sum + numericValue;
-  }, 0);
+  const subtotal = itemsList.reduce((sum, item) => sum + getNumericPrice(item), 0);
 
   return {
     subtotal,
@@ -124,7 +146,11 @@ function handleSoldTagPointerUp() {
   }
 }
 
-function openImageModal(imageUrl) {
+function openImageModal(imageUrl, itemId) {
+  if (itemId) {
+    viewCounts[itemId] = (viewCounts[itemId] || 0) + 1;
+    saveViewCounts();
+  }
   modalImageEl.src = imageUrl;
   imageModalEl.classList.remove('hidden');
 }
@@ -160,6 +186,7 @@ function placeOrder() {
   const order = {
     id: `ORD-${Date.now().toString().slice(-6)}`,
     createdAt: new Date().toLocaleString('zh-TW'),
+    timestamp: Date.now(),
     items: selectedItems.map((item) => ({
       name: item.name,
       price: item.price,
@@ -180,8 +207,10 @@ function placeOrder() {
 function getFilteredItems() {
   const query = searchInput.value.trim().toLowerCase();
   const selectedCategory = categoryFilter.value;
+  const hideSold = hideSoldCheckboxEl.checked;
+  const sortOrder = sortSelectEl.value;
 
-  return items.filter((item) => {
+  const filtered = items.filter((item) => {
     const matchesQuery =
       !query ||
       item.name.toLowerCase().includes(query) ||
@@ -189,9 +218,18 @@ function getFilteredItems() {
       item.note.toLowerCase().includes(query);
 
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    const matchesSold = !hideSold || !soldItems.includes(item.id);
 
-    return matchesQuery && matchesCategory;
+    return matchesQuery && matchesCategory && matchesSold;
   });
+
+  if (sortOrder === 'price-asc') {
+    filtered.sort((a, b) => getNumericPrice(a) - getNumericPrice(b));
+  } else if (sortOrder === 'price-desc') {
+    filtered.sort((a, b) => getNumericPrice(b) - getNumericPrice(a));
+  }
+
+  return filtered;
 }
 
 function renderCategoryTabs() {
@@ -289,7 +327,7 @@ function renderCatalog() {
       const sold = soldItems.includes(item.id);
       return `
         <article class="card">
-          <img src="${getImageUrl(item)}" alt="${item.name}" class="card-image" data-item-id="${item.id}" onerror="this.src='./assets/placeholder.svg'; this.onerror=null" />
+          <img src="${getImageUrl(item)}" alt="${item.name}" class="card-image" data-item-id="${item.id}" loading="lazy" decoding="async" onerror="this.src='./assets/placeholder.svg'; this.onerror=null" />
           <div class="card-body">
             <div class="card-top">
               <span class="badge">${item.category}</span>
@@ -303,8 +341,8 @@ function renderCatalog() {
             <h3>${item.name}</h3>
             <p class="note">${item.note}</p>
             <div class="card-actions">
-              <button class="btn-primary ${liked ? 'active' : ''}" data-id="${item.id}">
-                ${liked ? '已加入購物車' : '加入購物車'}
+              <button class="btn-primary ${liked ? 'active' : ''}" data-id="${item.id}" ${sold && !liked ? 'disabled' : ''}>
+                ${sold && !liked ? '已售出' : liked ? '已加入購物車' : '加入購物車'}
               </button>
 
             </div>
@@ -327,6 +365,302 @@ function loadMoreItems() {
   }
 }
 
+function pickRandom(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function renderOutfitCards(picks) {
+  const { total } = calculateTotal(picks);
+  outfitResultEl.innerHTML = `
+    <div class="outfit-cards">
+      ${picks
+        .map(
+          (item) => `
+            <div class="outfit-card">
+              <img src="${getImageUrl(item)}" alt="${item.name}" loading="lazy" decoding="async" onerror="this.src='./assets/placeholder.svg'; this.onerror=null" />
+              <div class="outfit-card-body">
+                <span class="badge">${item.category}</span>
+                <span class="outfit-card-name">${item.name}</span>
+                <span class="outfit-card-price">${item.price}</span>
+              </div>
+            </div>
+          `
+        )
+        .join('')}
+    </div>
+    <div class="outfit-total">共 ${picks.length} 件・<strong>${formatMoney(total)}</strong></div>
+  `;
+}
+
+function drawOutfit() {
+  const available = items.filter((item) => !soldItems.includes(item.id));
+  const byCategory = (category) => available.filter((item) => item.category === category);
+
+  const dressPool = byCategory('洋裝');
+  const topPool = byCategory('上衣');
+  const bottomPool = byCategory('下身');
+  const coatPool = byCategory('外套');
+
+  let picks = [];
+
+  const useDress = dressPool.length > 0 && (topPool.length === 0 || bottomPool.length === 0 || Math.random() < 0.5);
+
+  if (useDress) {
+    picks.push(pickRandom(dressPool));
+  } else if (topPool.length > 0 && bottomPool.length > 0) {
+    picks.push(pickRandom(topPool), pickRandom(bottomPool));
+  } else if (dressPool.length > 0) {
+    picks.push(pickRandom(dressPool));
+  } else if (topPool.length > 0) {
+    picks.push(pickRandom(topPool));
+  } else if (bottomPool.length > 0) {
+    picks.push(pickRandom(bottomPool));
+  }
+
+  if (coatPool.length > 0 && Math.random() < 0.5) {
+    picks.push(pickRandom(coatPool));
+  }
+
+  if (picks.length === 0) {
+    outfitResultEl.innerHTML = '<p class="empty">目前沒有可以搭配的衣服了（可能都已售出）</p>';
+    return;
+  }
+
+  renderOutfitCards(picks);
+}
+
+function getTodayKey() {
+  const now = new Date();
+  return `${now.getFullYear()}-${zeroPad(now.getMonth() + 1, 2)}-${zeroPad(now.getDate(), 2)}`;
+}
+
+// 以日期當種子，同一天永遠抽到同一組推薦，隔天才會換
+function createSeededRandom(seedText) {
+  let hash = 2166136261;
+  for (let index = 0; index < seedText.length; index += 1) {
+    hash ^= seedText.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  let state = hash >>> 0;
+  return function random() {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function pruneRecommendHistory() {
+  const staleKeys = Object.keys(recommendHistory).sort().reverse().slice(HISTORY_DAYS);
+  staleKeys.forEach((key) => delete recommendHistory[key]);
+}
+
+function getRecentlyRecommendedIds(todayKey) {
+  const recent = new Set();
+  Object.entries(recommendHistory).forEach(([date, ids]) => {
+    if (date === todayKey) return;
+    ids.forEach((id) => recent.add(id));
+  });
+  return recent;
+}
+
+function pickDailyItems(todayKey) {
+  const recentIds = getRecentlyRecommendedIds(todayKey);
+  const random = createSeededRandom(todayKey);
+
+  let pool = items
+    .filter((item) => !soldItems.includes(item.id))
+    .map((item) => {
+      const views = viewCounts[item.id] || 0;
+      // 越少被點開的權重越高，完全沒看過的再加成，最近推薦過的降權
+      let weight = views === 0 ? 3 : 1 / (1 + views);
+      if (recentIds.has(item.id)) {
+        weight *= 0.1;
+      }
+      return { item, weight };
+    });
+
+  const picks = [];
+  const categoryCount = {};
+
+  while (picks.length < DAILY_PICK_COUNT && pool.length > 0) {
+    const totalWeight = pool.reduce((sum, entry) => sum + entry.weight, 0);
+    let threshold = random() * totalWeight;
+    let chosen = pool[pool.length - 1];
+
+    for (const entry of pool) {
+      threshold -= entry.weight;
+      if (threshold <= 0) {
+        chosen = entry;
+        break;
+      }
+    }
+
+    picks.push(chosen.item);
+    categoryCount[chosen.item.category] = (categoryCount[chosen.item.category] || 0) + 1;
+    pool = pool.filter(
+      (entry) =>
+        entry.item.id !== chosen.item.id &&
+        (categoryCount[entry.item.category] || 0) < MAX_PER_CATEGORY
+    );
+  }
+
+  return picks;
+}
+
+function getDailyPickIds() {
+  const todayKey = getTodayKey();
+  const stored = recommendHistory[todayKey];
+
+  if (Array.isArray(stored)) {
+    const stillValid = stored.filter((id) => items.some((item) => item.id === id));
+    if (stillValid.length > 0) {
+      return stillValid;
+    }
+  }
+
+  recommendHistory[todayKey] = pickDailyItems(todayKey).map((item) => item.id);
+  pruneRecommendHistory();
+  saveRecommendHistory();
+  return recommendHistory[todayKey];
+}
+
+function renderDailyPicks() {
+  if (!dailyPicksEl) return;
+
+  const picks = getDailyPickIds()
+    .map((id) => items.find((item) => item.id === id))
+    .filter(Boolean);
+
+  dailyDateEl.textContent = `${getTodayKey()}・${picks.length} 件`;
+
+  if (picks.length === 0) {
+    dailyPicksEl.innerHTML = '<p class="empty">沒有可以推薦的衣服了</p>';
+    return;
+  }
+
+  dailyPicksEl.innerHTML = picks
+    .map((item) => {
+      const liked = wishlist.includes(item.id);
+      const neverViewed = !viewCounts[item.id];
+      return `
+        <div class="daily-card">
+          <img src="${getImageUrl(item)}" alt="${item.name}" data-item-id="${item.id}" loading="lazy" decoding="async" onerror="this.src='./assets/placeholder.svg'; this.onerror=null" />
+          <div class="daily-card-body">
+            <div class="daily-card-badges">
+              <span class="badge">${item.category}</span>
+              ${neverViewed ? '<span class="badge daily-badge-new">久違了</span>' : ''}
+            </div>
+            <span class="daily-card-name">${item.name}</span>
+            <span class="daily-card-price">${item.price}</span>
+            <button type="button" class="daily-card-btn ${liked ? 'active' : ''}" data-daily-id="${item.id}">
+              ${liked ? '已加入' : '加入購物車'}
+            </button>
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+}
+
+function getOrderTime(order) {
+  if (order.timestamp) {
+    return order.timestamp;
+  }
+
+  const datePart = String(order.createdAt || '').split(' ')[0].replace(/-/g, '/');
+  const parsed = Date.parse(datePart);
+  return Number.isNaN(parsed) ? null : parsed;
+}
+
+function renderSpending() {
+  if (!spendingSummaryEl) return;
+
+  const now = new Date();
+  let monthTotal = 0;
+  let allTotal = 0;
+  let orderedCount = 0;
+
+  orders.forEach((order) => {
+    allTotal += order.total || 0;
+    orderedCount += order.items ? order.items.length : 0;
+
+    const time = getOrderTime(order);
+    if (time === null) return;
+
+    const orderDate = new Date(time);
+    if (orderDate.getFullYear() === now.getFullYear() && orderDate.getMonth() === now.getMonth()) {
+      monthTotal += order.total || 0;
+    }
+  });
+
+  spendingSummaryEl.innerHTML = `
+    <div class="spending-tile">
+      <strong>${formatMoney(monthTotal)}</strong>
+      <span>本月消費</span>
+    </div>
+    <div class="spending-tile">
+      <strong>${formatMoney(allTotal)}</strong>
+      <span>累計消費</span>
+    </div>
+    <div class="spending-tile">
+      <strong>${orderedCount}</strong>
+      <span>累計件數</span>
+    </div>
+  `;
+}
+
+function renderStats() {
+  if (!statsContentEl) return;
+
+  const totalCount = items.length;
+  const soldCount = items.filter((item) => soldItems.includes(item.id)).length;
+  const totalValue = items.reduce((sum, item) => sum + getNumericPrice(item), 0);
+  const soldRatio = totalCount === 0 ? 0 : Math.round((soldCount / totalCount) * 100);
+
+  const categories = [...new Set(items.map((item) => item.category))];
+  const maxCategoryCount = Math.max(1, ...categories.map((category) => items.filter((item) => item.category === category).length));
+
+  statsContentEl.innerHTML = `
+    <div class="stats-summary">
+      <div class="stat-tile">
+        <strong>${totalCount}</strong>
+        <span>總件數</span>
+      </div>
+      <div class="stat-tile">
+        <strong>${formatMoney(totalValue)}</strong>
+        <span>衣櫃總價值</span>
+      </div>
+      <div class="stat-tile">
+        <strong>${soldCount} / ${soldRatio}%</strong>
+        <span>已售出</span>
+      </div>
+    </div>
+    <div class="stat-bars">
+      ${categories
+        .map((category) => {
+          const count = items.filter((item) => item.category === category).length;
+          const widthPercent = Math.round((count / maxCategoryCount) * 100);
+          return `
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">${category}</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:${widthPercent}%"></div></div>
+              <span class="stat-bar-value">${count} 件</span>
+            </div>
+          `;
+        })
+        .join('')}
+      <div class="stat-bar-row">
+        <span class="stat-bar-label">已售出</span>
+        <div class="stat-bar-track"><div class="stat-bar-fill sold" style="width:${soldRatio}%"></div></div>
+        <span class="stat-bar-value">${soldRatio}%</span>
+      </div>
+    </div>
+  `;
+}
+
 function render() {
   displayedItemCount = 50; // 重設為初始值
   renderCategoryTabs();
@@ -334,6 +668,9 @@ function render() {
   renderCheckoutSummary();
   renderOrders();
   renderCatalog();
+  renderDailyPicks();
+  renderSpending();
+  renderStats();
 }
 
 async function init() {
@@ -343,8 +680,33 @@ async function init() {
   const categories = [...new Set(items.map((item) => item.category))];
   categoryFilter.innerHTML = '<option value="all">全部</option>' + categories.map((category) => `<option value="${category}">${category}</option>`).join('');
 
+  sortSelectEl.value = localStorage.getItem('sortOrder') || 'default';
+  hideSoldCheckboxEl.checked = localStorage.getItem('hideSold') === 'true';
+
   searchInput.addEventListener('input', render);
   categoryFilter.addEventListener('change', render);
+  sortSelectEl.addEventListener('change', () => {
+    localStorage.setItem('sortOrder', sortSelectEl.value);
+    render();
+  });
+  hideSoldCheckboxEl.addEventListener('change', () => {
+    localStorage.setItem('hideSold', hideSoldCheckboxEl.checked);
+    render();
+  });
+  drawOutfitBtnEl.addEventListener('click', drawOutfit);
+
+  dailyPicksEl.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-daily-id]');
+    if (button) {
+      toggleWishlist(button.dataset.dailyId);
+      return;
+    }
+
+    const img = event.target.closest('img[data-item-id]');
+    if (img) {
+      openImageModal(img.src, img.dataset.itemId);
+    }
+  });
 
   categoryTabsEl.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-value]');
@@ -377,7 +739,7 @@ async function init() {
   catalogEl.addEventListener('click', (event) => {
     const img = event.target.closest('.card-image');
     if (img) {
-      openImageModal(img.src);
+      openImageModal(img.src, img.dataset.itemId);
       return;
     }
 
