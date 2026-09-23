@@ -3,7 +3,7 @@
 這是一個手機優先的衣服收藏頁面。用逛電商的方式瀏覽自己的衣櫃，把想穿的加進購物車、完成下單，
 重新發現那些已經擁有卻很久沒想起來的衣服。
 
-線上瀏覽：https://ariel1120.github.io/ariel-closet/
+線上瀏覽：https://nalada16.github.io/for_fun/
 
 ## 特色
 
@@ -54,7 +54,7 @@
 1. 把整理好的衣服資料填入 data.json。
 2. 把衣服照片放到 assets/ 資料夾，並用連號命名（`0001.jpg`、`0002.jpg`⋯）。
    找不到對應圖片時會自動顯示 `assets/placeholder.svg`。
-3. 網站會在 https://ariel1120.github.io/ariel-closet/ 開啟。
+3. 網站會在 https://nalada16.github.io/for_fun/ 開啟。
 
 ### data.json 格式
 
