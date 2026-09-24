@@ -19,12 +19,85 @@ body {
   font-family: "Noto Sans TC", "Segoe UI", Roboto, sans-serif;
   background: linear-gradient(180deg, #f3ecda 0%, var(--bg) 100%);
   color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 .app-shell {
+  display: block;
   max-width: 960px;
   margin: 0 auto;
-  padding: 16px 16px 40px;
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(88px + env(safe-area-inset-bottom, 0px))
+    max(16px, env(safe-area-inset-left, 0px));
+}
+
+/* 手機：固定在底部的分頁列 */
+.site-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.site-nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.site-brand {
+  display: none;
+}
+
+.site-nav-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.site-nav-links a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px 10px;
+  min-height: 56px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-nav-links .nav-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.site-nav-links a[aria-current="page"] {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.site-nav-links a[aria-current="page"] .nav-icon {
+  filter: none;
+  opacity: 1;
+}
+
+.site-nav-links a:focus-visible,
+.site-brand:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -4px;
+  border-radius: 12px;
 }
 
 .hero {
@@ -36,6 +109,38 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.hero--compact {
+  gap: 0;
+  padding: 16px 20px;
+}
+
+.hero--compact h1 {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.insights-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.insights-grid > section {
+  margin-top: 0;
+}
+
+.view-outfit .outfit-cards {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.view-outfit .outfit-card img {
+  height: 200px;
+}
+
+.active-filters {
+  scroll-margin-top: 16px;
 }
 
 .eyebrow {
@@ -84,6 +189,11 @@ h1 {
   align-items: center;
   gap: 8px;
   box-shadow: var(--shadow);
+}
+
+.filter-box > span {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .search-box input,
@@ -161,6 +271,7 @@ h1 {
 
 .daily-cards {
   margin-top: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 }
 
 .daily-card,
@@ -814,9 +925,114 @@ button:disabled {
   color: var(--muted);
 }
 
+@media (min-width: 640px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 700px) {
   .toolbar {
     grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* 平板以上：選單改成頂部導覽列 */
+@media (min-width: 768px) {
+  .site-nav {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    border-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .site-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .site-brand {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b8963e;
+    text-decoration: none;
+    padding: 6px 4px;
+  }
+
+  .site-nav-links {
+    display: flex;
+    gap: 6px;
+  }
+
+  .site-nav-links a {
+    flex-direction: row;
+    gap: 6px;
+    min-height: 0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .site-nav-links a:hover {
+    background: var(--primary-soft);
+  }
+
+  .site-nav-links .nav-icon {
+    font-size: 1rem;
+    filter: none;
+    opacity: 1;
+  }
+
+  .site-nav-links a[aria-current="page"] {
+    background: var(--primary);
+    color: white;
+  }
+
+  .app-shell {
+    padding-bottom: 40px;
+  }
+
+  .active-filters {
+    scroll-margin-top: 72px;
+  }
+
+  .view-outfit .outfit-cards {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+  }
+
+  .view-outfit .outfit-card img {
+    height: 260px;
+  }
+
+  .daily-card img {
+    height: 200px;
+  }
+}
+
+@media (min-width: 800px) {
+  .catalog-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .insights-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .insights-grid .palette-panel {
+    grid-column: 1 / -1;
   }
 }
 

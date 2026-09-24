@@ -2,148 +2,179 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#8b5cf6" />
     <title>我的衣服收藏館</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">My Closet</p>
-          <h1>我的衣服收藏館</h1>
-          <p class="hero-copy">發掘每件衣服的可能性，打造屬於你的時尚風格。</p>
+    <nav class="site-nav" aria-label="主選單">
+      <div class="site-nav-inner">
+        <a class="site-brand" href="#/">My Closet</a>
+        <div class="site-nav-links">
+          <a href="#/" data-route="home"><span class="nav-icon" aria-hidden="true">🏠</span><span>首頁</span></a>
+          <a href="#/outfit" data-route="outfit"><span class="nav-icon" aria-hidden="true">🎲</span><span>今日穿搭</span></a>
+          <a href="#/insights" data-route="insights"><span class="nav-icon" aria-hidden="true">📊</span><span>衣櫃分析</span></a>
         </div>
-      </header>
+      </div>
+    </nav>
 
-      <section class="toolbar">
-        <label class="search-box" for="searchInput">
-          <span>🔍</span>
-          <input id="searchInput" type="search" placeholder="搜尋衣服、風格、顏色" />
-        </label>
-        <label class="filter-box" for="categoryFilter">
-          <span>分類</span>
-          <select id="categoryFilter">
-            <option value="all">全部</option>
-          </select>
-        </label>
-        <label class="filter-box" for="sortSelect">
-          <span>排序</span>
-          <select id="sortSelect">
-            <option value="default">預設</option>
-            <option value="price-asc">價格由低到高</option>
-            <option value="price-desc">價格由高到低</option>
-          </select>
-        </label>
-        <label class="toggle-box" for="hideSoldCheckbox">
-          <input type="checkbox" id="hideSoldCheckbox" />
-          <span>隱藏已售出</span>
-        </label>
-      </section>
+    <main class="app-shell">
+      <div class="view" data-view="home">
+        <header class="hero">
+          <div>
+            <p class="eyebrow">My Closet</p>
+            <h1>我的衣服收藏館</h1>
+            <p class="hero-copy">發掘每件衣服的可能性，打造屬於你的時尚風格。</p>
+          </div>
+        </header>
 
-      <section class="summary-bar">
-        <div>
-          <strong id="itemCount">0</strong>
-          <span>件衣服</span>
-        </div>
-        <div>
-          <strong id="wishlistCount">0</strong>
-          <span>想買清單</span>
-        </div>
-      </section>
+        <section class="daily-panel">
+          <div class="section-header">
+            <h2>✨ 每日推薦</h2>
+            <span class="section-subtitle" id="dailyDate"></span>
+          </div>
+          <div id="dailyPicks" class="daily-cards"></div>
+        </section>
 
-      <section class="daily-panel">
-        <div class="section-header">
-          <h2>✨ 每日推薦</h2>
-          <span class="section-subtitle" id="dailyDate"></span>
-        </div>
-        <div id="dailyPicks" class="daily-cards"></div>
-      </section>
+        <section class="toolbar">
+          <label class="search-box" for="searchInput">
+            <span>🔍</span>
+            <input id="searchInput" type="search" placeholder="搜尋衣服、風格、顏色" />
+          </label>
+          <label class="filter-box" for="categoryFilter">
+            <span>分類</span>
+            <select id="categoryFilter">
+              <option value="all">全部</option>
+            </select>
+          </label>
+          <label class="filter-box" for="sortSelect">
+            <span>排序</span>
+            <select id="sortSelect">
+              <option value="default">預設</option>
+              <option value="price-asc">價格由低到高</option>
+              <option value="price-desc">價格由高到低</option>
+            </select>
+          </label>
+          <label class="toggle-box" for="hideSoldCheckbox">
+            <input type="checkbox" id="hideSoldCheckbox" />
+            <span>隱藏已售出</span>
+          </label>
+        </section>
 
-      <section class="outfit-panel">
-        <div class="section-header">
-          <h2>🎲 今日穿搭</h2>
-          <span class="section-subtitle">隨機幫你配一套</span>
-        </div>
-        <div id="outfitResult" class="outfit-result">
-          <p class="empty">按下方按鈕，抽一套今天的穿搭吧！</p>
-        </div>
-        <div class="outfit-actions">
-          <button id="drawOutfitBtn" type="button" class="btn-primary">🎲 抽一套穿搭</button>
-        </div>
-      </section>
+        <section class="summary-bar">
+          <div>
+            <strong id="itemCount">0</strong>
+            <span>件衣服</span>
+          </div>
+          <div>
+            <strong id="wishlistCount">0</strong>
+            <span>想買清單</span>
+          </div>
+        </section>
 
-      <section class="stats-panel">
-        <div class="section-header">
-          <h2>📊 衣櫃統計</h2>
-          <span class="section-subtitle">你的收藏總覽</span>
+        <section class="tabs-panel">
+          <div id="categoryTabs" class="category-tabs" role="tablist" aria-label="衣服分類"></div>
+        </section>
+
+        <section class="wishlist-panel">
+          <div class="section-header">
+            <h2>購物車</h2>
+            <span class="section-subtitle">把喜歡的衣服加入這裡</span>
+          </div>
+          <div id="wishlistList" class="wishlist-list">目前沒有選擇的衣服</div>
+          <div class="cart-actions">
+            <button id="checkoutBtn" class="btn-primary">前往結帳</button>
+            <button id="clearCartBtn" class="btn-secondary">清空購物車</button>
+          </div>
+        </section>
+
+        <section id="checkoutPanel" class="checkout-panel hidden">
+          <h2>結帳</h2>
+          <div id="checkoutSummary" class="checkout-summary"></div>
+          <div class="checkout-actions">
+            <button id="placeOrderBtn" class="btn-primary">完成下單</button>
+            <button id="cancelCheckoutBtn" class="btn-secondary">返回購物車</button>
+          </div>
+        </section>
+
+        <section class="orders-panel">
+          <div class="section-header">
+            <h2>訂單紀錄</h2>
+            <button id="clearOrdersBtn" class="btn-secondary">刪除所有訂單</button>
+          </div>
+          <div id="spendingSummary" class="spending-summary"></div>
+          <div id="ordersList" class="orders-list"></div>
+        </section>
+
+        <div id="activeFilters" class="active-filters hidden"></div>
+
+        <section id="catalog" class="catalog-grid"></section>
+      </div>
+
+      <div class="view view-outfit" data-view="outfit" hidden>
+        <header class="hero hero--compact">
+          <p class="eyebrow">Outfit</p>
+          <h1>今日穿搭</h1>
+          <p class="hero-copy">依照現在的季節，從衣櫃裡幫你配一套。</p>
+        </header>
+
+        <section class="outfit-panel">
+          <div class="section-header">
+            <h2>🎲 今日穿搭</h2>
+            <span class="section-subtitle">隨機幫你配一套</span>
+          </div>
+          <div id="outfitResult" class="outfit-result">
+            <p class="empty">按下方按鈕，抽一套今天的穿搭吧！</p>
+          </div>
+          <div class="outfit-actions">
+            <button id="drawOutfitBtn" type="button" class="btn-primary">🎲 抽一套穿搭</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="view" data-view="insights" hidden>
+        <header class="hero hero--compact">
+          <p class="eyebrow">Insights</p>
+          <h1>衣櫃分析</h1>
+          <p class="hero-copy">看看你的衣櫃有哪些顏色、適合哪些季節。點顏色或季節可以直接看那些衣服。</p>
+        </header>
+
+        <div class="insights-grid">
+          <section class="stats-panel">
+            <div class="section-header">
+              <h2>📊 衣櫃統計</h2>
+              <span class="section-subtitle">你的收藏總覽</span>
+            </div>
+            <div id="statsContent" class="stats-content"></div>
+          </section>
+
+          <section class="season-panel">
+            <div class="section-header">
+              <h2>🌤️ 季節分析</h2>
+              <span class="section-subtitle" id="seasonInsight"></span>
+            </div>
+            <div id="seasonBars" class="stat-bars season-bars"></div>
+          </section>
+
+          <section class="palette-panel">
+            <div class="section-header">
+              <h2>🎨 衣櫃色盤</h2>
+              <span class="section-subtitle" id="paletteInsight"></span>
+            </div>
+            <div id="colorChips" class="color-chips"></div>
+            <div id="swatchWall" class="swatch-wall"></div>
+            <p id="metaMissing" class="meta-missing hidden"></p>
+          </section>
         </div>
-        <div id="statsContent" class="stats-content"></div>
-      </section>
+      </div>
+    </main>
 
-      <section class="palette-panel">
-        <div class="section-header">
-          <h2>🎨 衣櫃色盤</h2>
-          <span class="section-subtitle" id="paletteInsight"></span>
-        </div>
-        <div id="colorChips" class="color-chips"></div>
-        <div id="swatchWall" class="swatch-wall"></div>
-        <p id="metaMissing" class="meta-missing hidden"></p>
-      </section>
-
-      <section class="season-panel">
-        <div class="section-header">
-          <h2>🌤️ 季節分析</h2>
-          <span class="section-subtitle" id="seasonInsight"></span>
-        </div>
-        <div id="seasonBars" class="stat-bars season-bars"></div>
-      </section>
-
-      <section class="tabs-panel">
-        <div id="categoryTabs" class="category-tabs" role="tablist" aria-label="衣服分類"></div>
-      </section>
-
-      <section class="wishlist-panel">
-        <div class="section-header">
-          <h2>購物車</h2>
-          <span class="section-subtitle">把喜歡的衣服加入這裡</span>
-        </div>
-        <div id="wishlistList" class="wishlist-list">目前沒有選擇的衣服</div>
-        <div class="cart-actions">
-          <button id="checkoutBtn" class="btn-primary">前往結帳</button>
-          <button id="clearCartBtn" class="btn-secondary">清空購物車</button>
-        </div>
-      </section>
-
-      <section id="checkoutPanel" class="checkout-panel hidden">
-        <h2>結帳</h2>
-        <div id="checkoutSummary" class="checkout-summary"></div>
-        <div class="checkout-actions">
-          <button id="placeOrderBtn" class="btn-primary">完成下單</button>
-          <button id="cancelCheckoutBtn" class="btn-secondary">返回購物車</button>
-        </div>
-      </section>
-
-      <section class="orders-panel">
-        <div class="section-header">
-          <h2>訂單紀錄</h2>
-          <button id="clearOrdersBtn" class="btn-secondary">刪除所有訂單</button>
-        </div>
-        <div id="spendingSummary" class="spending-summary"></div>
-        <div id="ordersList" class="orders-list"></div>
-      </section>
-
-      <div id="activeFilters" class="active-filters hidden"></div>
-
-      <section id="catalog" class="catalog-grid"></section>
-
-      <div id="imageModal" class="image-modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-          <button id="closeModalBtn" class="modal-close">✕</button>
-          <img id="modalImage" src="" alt="" />
-        </div>
+    <div id="imageModal" class="image-modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button id="closeModalBtn" class="modal-close">✕</button>
+        <img id="modalImage" src="" alt="" />
       </div>
     </div>
 

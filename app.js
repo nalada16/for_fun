@@ -826,6 +826,57 @@ function scrollToCatalog() {
   activeFiltersEl.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
 }
 
+const ROUTES = {
+  home: '我的衣服收藏館',
+  outfit: '今日穿搭・我的衣服收藏館',
+  insights: '衣櫃分析・我的衣服收藏館',
+};
+const scrollPositions = {};
+let currentRoute = null;
+let scrollToCatalogOnArrival = false;
+
+function getRoute() {
+  const route = window.location.hash.replace(/^#\/?/, '');
+  return Object.prototype.hasOwnProperty.call(ROUTES, route) ? route : 'home';
+}
+
+function showRoute() {
+  const route = getRoute();
+  if (currentRoute) {
+    scrollPositions[currentRoute] = window.scrollY;
+  }
+
+  document.querySelectorAll('[data-view]').forEach((view) => {
+    view.hidden = view.dataset.view !== route;
+  });
+  document.querySelectorAll('[data-route]').forEach((link) => {
+    if (link.dataset.route === route) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+  document.title = ROUTES[route];
+  currentRoute = route;
+
+  if (route === 'home' && scrollToCatalogOnArrival) {
+    scrollToCatalogOnArrival = false;
+    scrollToCatalog();
+  } else {
+    window.scrollTo(0, scrollPositions[route] || 0);
+  }
+}
+
+// 從分析頁點顏色或季節時，帶回首頁並捲到篩選好的商品
+function goToFilteredCatalog() {
+  if (getRoute() === 'home') {
+    scrollToCatalog();
+    return;
+  }
+  scrollToCatalogOnArrival = true;
+  window.location.hash = '#/';
+}
+
 function renderStats() {
   if (!statsContentEl) return;
 
@@ -901,6 +952,9 @@ async function loadMetadata() {
 }
 
 async function init() {
+  showRoute();
+  window.addEventListener('hashchange', showRoute);
+
   const response = await fetch('./data.json');
   items = await response.json();
   metadata = await loadMetadata();
@@ -934,7 +988,7 @@ async function init() {
     if (!chip) return;
     colorFilter = colorFilter === chip.dataset.color ? null : chip.dataset.color;
     render();
-    if (colorFilter) scrollToCatalog();
+    if (colorFilter) goToFilteredCatalog();
   });
 
   swatchWallEl.addEventListener('click', (event) => {
@@ -947,7 +1001,7 @@ async function init() {
   const toggleSeasonFilter = (row) => {
     seasonFilter = seasonFilter === row.dataset.season ? null : row.dataset.season;
     render();
-    if (seasonFilter) scrollToCatalog();
+    if (seasonFilter) goToFilteredCatalog();
   };
 
   seasonBarsEl.addEventListener('click', (event) => {
