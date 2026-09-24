@@ -1,0 +1,3045 @@
+{
+ "1": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#2C2C2C",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "2": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B7355",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "3": {
+  "color": "綠",
+  "secondaryColors": [
+   "白"
+  ],
+  "hex": "#4A7C59",
+  "pattern": "印花",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "4": {
+  "color": "白",
+  "secondaryColors": [
+   "深藍"
+  ],
+  "hex": "#F5F5F5",
+  "pattern": "印花",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "5": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "6": {
+  "color": "藍",
+  "secondaryColors": [
+   "綠"
+  ],
+  "hex": "#5B8DBE",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "7": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#1C3A47",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "8": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F0EBE0",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "9": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D2B48C",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "10": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D9A876",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "11": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#2B3E50",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "個性"
+  ],
+  "confidence": "high"
+ },
+ "12": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D5C4",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "13": {
+  "color": "白",
+  "secondaryColors": [
+   "深藍"
+  ],
+  "hex": "#F8F8F8",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "14": {
+  "color": "黑",
+  "secondaryColors": [
+   "米白"
+  ],
+  "hex": "#1A1A1A",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "15": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#0F0F0F",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "16": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#6F5551",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "無袖",
+  "styles": [
+   "正式",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "17": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#E6DFD3",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "18": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#1F3A4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "19": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#E5D9CC",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "20": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#7A6B62",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "21": {
+  "color": "藍",
+  "secondaryColors": [
+   "白",
+   "橘"
+  ],
+  "hex": "#1F5A96",
+  "pattern": "拼色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "度假",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "22": {
+  "color": "白",
+  "secondaryColors": [
+   "紫"
+  ],
+  "hex": "#F0EBE5",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "23": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#8B9D6F",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "個性"
+  ],
+  "confidence": "high"
+ },
+ "24": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "25": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#D8A5A8",
+  "pattern": "條紋",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "26": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#7A7A7A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "27": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1A1A1A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "28": {
+  "color": "黑",
+  "secondaryColors": [
+   "白"
+  ],
+  "hex": "#1C1C1E",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "29": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B6F47",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "30": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "31": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#E8BCC4",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "32": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "33": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#1F4172",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "34": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B7355",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "35": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "36": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "37": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#EDE7DD",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "38": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#A0826D",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "39": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#6B4423",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "40": {
+  "color": "白",
+  "secondaryColors": [
+   "橘"
+  ],
+  "hex": "#FFFFFF",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "41": {
+  "color": "黃",
+  "secondaryColors": [],
+  "hex": "#F4D03F",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "42": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#808080",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "43": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "44": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "45": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "46": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#1F5F6F",
+  "pattern": "印花",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "度假",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "47": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "48": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#003B70",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "49": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#E8BCC4",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "50": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#2C3E3F",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "51": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#2C3E50",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "52": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#1F3F5F",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "53": {
+  "color": "藍",
+  "secondaryColors": [],
+  "hex": "#5B9BD5",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "54": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#D4A5A5",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "55": {
+  "color": "白",
+  "secondaryColors": [
+   "灰"
+  ],
+  "hex": "#E8E8E8",
+  "pattern": "格紋",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "56": {
+  "color": "橘",
+  "secondaryColors": [],
+  "hex": "#E55B2B",
+  "pattern": "條紋",
+  "tone": "鮮豔",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "57": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#E8E0D8",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "58": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "格紋",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "正式",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "59": {
+  "color": "黑",
+  "secondaryColors": [
+   "灰"
+  ],
+  "hex": "#2C2C2C",
+  "pattern": "漸層",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "60": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#8B8B8B",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "61": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F5E6D3",
+  "pattern": "條紋",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "無袖",
+  "styles": [
+   "度假",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "62": {
+  "color": "咖啡",
+  "secondaryColors": [
+   "粉",
+   "紅"
+  ],
+  "hex": "#6B4423",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "63": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "正式",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "64": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#1A1A1A",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "個性"
+  ],
+  "confidence": "high"
+ },
+ "65": {
+  "color": "黑",
+  "secondaryColors": [
+   "灰"
+  ],
+  "hex": "#0F0F0F",
+  "pattern": "漸層",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "66": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D4B896",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "度假",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "67": {
+  "color": "藍",
+  "secondaryColors": [
+   "白"
+  ],
+  "hex": "#0047AB",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "度假",
+   "復古"
+  ],
+  "confidence": "high"
+ },
+ "68": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#3D2817",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "69": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#001E50",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "70": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E6D4C0",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "71": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#9B9B9B",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "72": {
+  "color": "黑",
+  "secondaryColors": [
+   "金屬色"
+  ],
+  "hex": "#0A0A0A",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "正式",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "73": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1A1A1A",
+  "pattern": "其他",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "正式",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "74": {
+  "color": "綠",
+  "secondaryColors": [
+   "米白"
+  ],
+  "hex": "#6B8E23",
+  "pattern": "格紋",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "75": {
+  "color": "灰",
+  "secondaryColors": [
+   "米白",
+   "黑"
+  ],
+  "hex": "#555555",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "76": {
+  "color": "深藍",
+  "secondaryColors": [
+   "米白"
+  ],
+  "hex": "#00205B",
+  "pattern": "格紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "77": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D7C3",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "夏",
+   "秋"
+  ],
+  "warmth": 1,
+  "sleeve": "七分袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "78": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#D4A5B4",
+  "pattern": "條紋",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "79": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#0F0F0F",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "個性"
+  ],
+  "confidence": "high"
+ },
+ "80": {
+  "color": "綠",
+  "secondaryColors": [
+   "粉",
+   "米白"
+  ],
+  "hex": "#7BA82E",
+  "pattern": "格紋",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "81": {
+  "color": "綠",
+  "secondaryColors": [
+   "藍"
+  ],
+  "hex": "#5A8A8A",
+  "pattern": "條紋",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "休閒",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "82": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#BFBFBF",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "83": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#C9A8A0",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "84": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#F5F5F5",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "85": {
+  "color": "卡其",
+  "secondaryColors": [
+   "粉"
+  ],
+  "hex": "#E8D7C3",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 1,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "度假"
+  ],
+  "confidence": "high"
+ },
+ "86": {
+  "color": "卡其",
+  "secondaryColors": [
+   "黑"
+  ],
+  "hex": "#E8D7C3",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "87": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#F0F0F0",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 1,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "88": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D4A574",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "89": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D4B8",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "90": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 1,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "91": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D4B8",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "甜美",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "92": {
+  "color": "多色",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "93": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "94": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D4A574",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "夏",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "95": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F5F1E8",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "96": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#4A4A4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "97": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#C2A88A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "98": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D4B8",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "99": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#4A4A4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "100": {
+  "color": "黑",
+  "secondaryColors": [
+   "金屬色"
+  ],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "101": {
+  "color": "黑",
+  "secondaryColors": [
+   "綠"
+  ],
+  "hex": "#1A3A1A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "102": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#2D4A2D",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "103": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#B8860B",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "104": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#E8D4B8",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "甜美"
+  ],
+  "confidence": "high"
+ },
+ "105": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "休閒",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "106": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#4A4A4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "107": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "108": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 5,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "109": {
+  "color": "綠",
+  "secondaryColors": [
+   "黑"
+  ],
+  "hex": "#2D5A3D",
+  "pattern": "格紋",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "復古"
+  ],
+  "confidence": "high"
+ },
+ "110": {
+  "color": "灰",
+  "secondaryColors": [
+   "黑"
+  ],
+  "hex": "#696969",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "111": {
+  "color": "深藍",
+  "secondaryColors": [
+   "綠"
+  ],
+  "hex": "#1A3D4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "112": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#2B3E50",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "日常",
+   "休閒"
+  ],
+  "confidence": "high"
+ },
+ "113": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#5A6B3A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "日常",
+   "休閒"
+  ],
+  "confidence": "high"
+ },
+ "114": {
+  "color": "灰",
+  "secondaryColors": [
+   "藍"
+  ],
+  "hex": "#708090",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 5,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "115": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#6B4423",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "116": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F0E8DC",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 5,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "117": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "118": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#4A4A4A",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "119": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "high"
+ },
+ "120": {
+  "color": "藍",
+  "secondaryColors": [],
+  "hex": "#87CEEB",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "121": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "high"
+ },
+ "122": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#D4A5A5",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "123": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#636363",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "high"
+ },
+ "124": {
+  "color": "黃",
+  "secondaryColors": [],
+  "hex": "#FFD700",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "low"
+ },
+ "125": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B4513",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "low"
+ },
+ "126": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "其他",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "127": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#4A7C59",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "128": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#4A7C59",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "129": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#808080",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "130": {
+  "color": "深藍",
+  "secondaryColors": [
+   "黑"
+  ],
+  "hex": "#001F3F",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "131": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#00008B",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "low"
+ },
+ "132": {
+  "color": "綠",
+  "secondaryColors": [
+   "藍"
+  ],
+  "hex": "#20B2AA",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "復古",
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "133": {
+  "color": "綠",
+  "secondaryColors": [
+   "藍"
+  ],
+  "hex": "#87CEEB",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "甜美",
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "134": {
+  "color": "綠",
+  "secondaryColors": [
+   "藍"
+  ],
+  "hex": "#87CEEB",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常",
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "135": {
+  "color": "藍",
+  "secondaryColors": [
+   "白"
+  ],
+  "hex": "#0066CC",
+  "pattern": "拼色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "136": {
+  "color": "紫",
+  "secondaryColors": [
+   "粉"
+  ],
+  "hex": "#DDA0DD",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "甜美",
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "137": {
+  "color": "紫",
+  "secondaryColors": [],
+  "hex": "#663366",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "138": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#C0C0C0",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "139": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "140": {
+  "color": "金屬色",
+  "secondaryColors": [],
+  "hex": "#C0C0C0",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 3,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "141": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#00AA00",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "復古"
+  ],
+  "confidence": "low"
+ },
+ "142": {
+  "color": "黑",
+  "secondaryColors": [
+   "白"
+  ],
+  "hex": "#1C1C1E",
+  "pattern": "印花",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "143": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F5F5DC",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "144": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#505050",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "145": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#FFB6C1",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "146": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#D4A370",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "147": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#704527",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 3,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "148": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D4A574",
+  "pattern": "印花",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋",
+   "冬"
+  ],
+  "warmth": 3,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅",
+   "復古"
+  ],
+  "confidence": "low"
+ },
+ "149": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#6BA85E",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "150": {
+  "color": "綠",
+  "secondaryColors": [],
+  "hex": "#6BA85E",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "休閒"
+  ],
+  "confidence": "low"
+ },
+ "151": {
+  "color": "卡其",
+  "secondaryColors": [],
+  "hex": "#D4A574",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "七分袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "152": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "153": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#808080",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "154": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "155": {
+  "color": "粉",
+  "secondaryColors": [],
+  "hex": "#FFB6C1",
+  "pattern": "素色",
+  "tone": "柔和",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "156": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#A9A9A9",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "157": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "短袖",
+  "styles": [
+   "優雅",
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "158": {
+  "color": "黑",
+  "secondaryColors": [],
+  "hex": "#1C1C1E",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "不適用",
+  "styles": [
+   "休閒"
+  ],
+  "confidence": "low"
+ },
+ "159": {
+  "color": "金屬色",
+  "secondaryColors": [],
+  "hex": "#C0C0C0",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅",
+   "個性"
+  ],
+  "confidence": "low"
+ },
+ "160": {
+  "color": "白",
+  "secondaryColors": [],
+  "hex": "#FFFFFF",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "161": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#D3D3D3",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "不適用",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "162": {
+  "color": "深藍",
+  "secondaryColors": [],
+  "hex": "#00008B",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "163": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B7355",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常"
+  ],
+  "confidence": "low"
+ },
+ "164": {
+  "color": "咖啡",
+  "secondaryColors": [],
+  "hex": "#8B7355",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "度假",
+   "復古"
+  ],
+  "confidence": "low"
+ },
+ "165": {
+  "color": "米白",
+  "secondaryColors": [],
+  "hex": "#F5F5DC",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 2,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "166": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#D3D3D3",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "優雅"
+  ],
+  "confidence": "low"
+ },
+ "167": {
+  "color": "紅",
+  "secondaryColors": [],
+  "hex": "#DC143C",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "秋"
+  ],
+  "warmth": 2,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "正式"
+  ],
+  "confidence": "low"
+ },
+ "168": {
+  "color": "橘",
+  "secondaryColors": [],
+  "hex": "#FF8C00",
+  "pattern": "素色",
+  "tone": "鮮豔",
+  "seasons": [
+   "春",
+   "夏"
+  ],
+  "warmth": 1,
+  "sleeve": "無袖",
+  "styles": [
+   "日常",
+   "甜美"
+  ],
+  "confidence": "low"
+ },
+ "169": {
+  "color": "灰",
+  "secondaryColors": [],
+  "hex": "#808080",
+  "pattern": "素色",
+  "tone": "中性",
+  "seasons": [
+   "秋",
+   "冬"
+  ],
+  "warmth": 4,
+  "sleeve": "長袖",
+  "styles": [
+   "優雅",
+   "日常"
+  ],
+  "confidence": "low"
+ }
+}

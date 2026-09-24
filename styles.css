@@ -138,7 +138,9 @@ h1 {
 
 .daily-panel,
 .outfit-panel,
-.stats-panel {
+.stats-panel,
+.palette-panel,
+.season-panel {
   margin-top: 16px;
   background: var(--surface);
   border-radius: 20px;
@@ -346,6 +348,142 @@ h1 {
   color: var(--text);
 }
 
+.color-chips {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.color-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  background: #f7f5fb;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.color-chip.active {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
+
+.color-chip small {
+  color: inherit;
+  opacity: 0.65;
+}
+
+.color-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.swatch-wall {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22px, 1fr));
+  gap: 3px;
+}
+
+.swatch {
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.12s;
+}
+
+.swatch:hover,
+.swatch:focus-visible {
+  transform: scale(1.35);
+  position: relative;
+  z-index: 1;
+}
+
+.swatch.dimmed {
+  opacity: 0.18;
+}
+
+.meta-missing {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.season-bars {
+  margin-top: 12px;
+}
+
+.season-bars .stat-bar-row {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 4px 6px;
+  margin: 0 -6px;
+}
+
+.season-bars .stat-bar-label {
+  width: 76px;
+}
+
+.season-bars .stat-bar-row:hover {
+  background: var(--primary-soft);
+}
+
+.season-bars .stat-bar-row.active {
+  background: #111827;
+  color: white;
+}
+
+.season-bars .stat-bar-row.active .stat-bar-label,
+.season-bars .stat-bar-row.active .stat-bar-value {
+  color: white;
+}
+
+.season-now {
+  margin-left: 4px;
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+}
+
+.card-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.active-filters {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.active-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  background: #111827;
+  color: white;
+}
+
 .tabs-panel {
   margin: 12px 0 16px;
 }
@@ -395,9 +533,14 @@ h1 {
   gap: 8px;
 }
 
+.section-header h2 {
+  flex-shrink: 0;
+}
+
 .section-subtitle {
   color: var(--muted);
   font-size: 0.9rem;
+  text-align: right;
 }
 
 .wishlist-list,

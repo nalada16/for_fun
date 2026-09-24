@@ -24,8 +24,39 @@ const statsContentEl = document.getElementById('statsContent');
 const dailyPicksEl = document.getElementById('dailyPicks');
 const dailyDateEl = document.getElementById('dailyDate');
 const spendingSummaryEl = document.getElementById('spendingSummary');
+const colorChipsEl = document.getElementById('colorChips');
+const swatchWallEl = document.getElementById('swatchWall');
+const paletteInsightEl = document.getElementById('paletteInsight');
+const metaMissingEl = document.getElementById('metaMissing');
+const seasonBarsEl = document.getElementById('seasonBars');
+const seasonInsightEl = document.getElementById('seasonInsight');
+const activeFiltersEl = document.getElementById('activeFilters');
+
+const COLOR_SWATCHES = {
+  黑: '#1F1F1F',
+  白: '#FAFAFA',
+  米白: '#F1E8D8',
+  灰: '#9A9A9A',
+  卡其: '#C8AD7F',
+  咖啡: '#7B5236',
+  深藍: '#1F2F55',
+  藍: '#6C9BD2',
+  綠: '#5E8C61',
+  粉: '#F2B5C4',
+  紅: '#C0392B',
+  黃: '#E9C94B',
+  紫: '#9B7BB8',
+  橘: '#E8894A',
+  金屬色: 'linear-gradient(135deg, #e5e5e5, #b8860b)',
+  多色: 'conic-gradient(#e57373, #ffd54f, #81c784, #64b5f6, #ba68c8, #e57373)',
+};
+const COLOR_ORDER = Object.keys(COLOR_SWATCHES);
+const SEASONS = ['春', '夏', '秋', '冬'];
 
 let items = [];
+let metadata = {};
+let colorFilter = null;
+let seasonFilter = null;
 let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 let orders = JSON.parse(localStorage.getItem('orders') || '[]');
 let soldItems = JSON.parse(localStorage.getItem('soldItems') || '[]');
@@ -91,6 +122,37 @@ function getWishlistItems() {
 
 function getNumericPrice(item) {
   return Number(String(item.price).replace(/[^\d]/g, '')) || 0;
+}
+
+function getMeta(item) {
+  return metadata[item.id] || null;
+}
+
+function getCurrentSeason() {
+  const month = new Date().getMonth() + 1;
+  if (month >= 3 && month <= 5) return '春';
+  if (month >= 6 && month <= 8) return '夏';
+  if (month >= 9 && month <= 11) return '秋';
+  return '冬';
+}
+
+// 還沒有 metadata 的衣服不擋掉，避免新加的衣服永遠抽不到
+function isInSeason(item, season) {
+  const meta = getMeta(item);
+  return !meta || meta.seasons.includes(season);
+}
+
+function getHexLightness(hex) {
+  const value = parseInt(String(hex).slice(1), 16);
+  if (Number.isNaN(value)) return 0;
+  const r = (value >> 16) & 255;
+  const g = (value >> 8) & 255;
+  const b = value & 255;
+  return (Math.max(r, g, b) + Math.min(r, g, b)) / 2;
+}
+
+function getOwnedItems() {
+  return items.filter((item) => !soldItems.includes(item.id));
 }
 
 function calculateTotal(itemsList) {
@@ -211,16 +273,24 @@ function getFilteredItems() {
   const sortOrder = sortSelectEl.value;
 
   const filtered = items.filter((item) => {
+    const meta = getMeta(item);
+    const metaText = meta
+      ? [meta.color, ...meta.secondaryColors, meta.pattern, meta.tone, meta.sleeve, ...meta.seasons, ...meta.styles].join(' ')
+      : '';
+
     const matchesQuery =
       !query ||
       item.name.toLowerCase().includes(query) ||
       item.category.toLowerCase().includes(query) ||
-      item.note.toLowerCase().includes(query);
+      item.note.toLowerCase().includes(query) ||
+      metaText.includes(query);
 
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     const matchesSold = !hideSold || !soldItems.includes(item.id);
+    const matchesColor = !colorFilter || (meta && meta.color === colorFilter);
+    const matchesSeason = !seasonFilter || (meta && meta.seasons.includes(seasonFilter));
 
-    return matchesQuery && matchesCategory && matchesSold;
+    return matchesQuery && matchesCategory && matchesSold && matchesColor && matchesSeason;
   });
 
   if (sortOrder === 'price-asc') {
@@ -325,6 +395,10 @@ function renderCatalog() {
     .map((item) => {
       const liked = wishlist.includes(item.id);
       const sold = soldItems.includes(item.id);
+      const meta = getMeta(item);
+      const tags = meta
+        ? `<div class="card-tags"><span class="color-dot" style="background:${meta.hex}"></span>${meta.color}・${meta.seasons.join('')}</div>`
+        : '';
       return `
         <article class="card">
           <img src="${getImageUrl(item)}" alt="${item.name}" class="card-image" data-item-id="${item.id}" loading="lazy" decoding="async" onerror="this.src='./assets/placeholder.svg'; this.onerror=null" />
@@ -339,6 +413,7 @@ function renderCatalog() {
               <span class="price">${item.price}</span>
             </div>
             <h3>${item.name}</h3>
+            ${tags}
             <p class="note">${item.note}</p>
             <div class="card-actions">
               <button class="btn-primary ${liked ? 'active' : ''}" data-id="${item.id}" ${sold && !liked ? 'disabled' : ''}>
@@ -369,7 +444,7 @@ function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-function renderOutfitCards(picks) {
+function renderOutfitCards(picks, season) {
   const { total } = calculateTotal(picks);
   outfitResultEl.innerHTML = `
     <div class="outfit-cards">
@@ -388,21 +463,16 @@ function renderOutfitCards(picks) {
         )
         .join('')}
     </div>
-    <div class="outfit-total">共 ${picks.length} 件・<strong>${formatMoney(total)}</strong></div>
+    <div class="outfit-total">${season}季穿搭・共 ${picks.length} 件・<strong>${formatMoney(total)}</strong></div>
   `;
 }
 
-function drawOutfit() {
-  const available = items.filter((item) => !soldItems.includes(item.id));
-  const byCategory = (category) => available.filter((item) => item.category === category);
+const COAT_CHANCE = { 春: 0.5, 夏: 0.15, 秋: 0.6, 冬: 1 };
+const MAX_OUTFIT_ATTEMPTS = 30;
 
-  const dressPool = byCategory('洋裝');
-  const topPool = byCategory('上衣');
-  const bottomPool = byCategory('下身');
-  const coatPool = byCategory('外套');
-
-  let picks = [];
-
+function pickOutfitOnce(pools, season) {
+  const { dressPool, topPool, bottomPool, coatPool } = pools;
+  const picks = [];
   const useDress = dressPool.length > 0 && (topPool.length === 0 || bottomPool.length === 0 || Math.random() < 0.5);
 
   if (useDress) {
@@ -417,8 +487,37 @@ function drawOutfit() {
     picks.push(pickRandom(bottomPool));
   }
 
-  if (coatPool.length > 0 && Math.random() < 0.5) {
+  if (coatPool.length > 0 && Math.random() < COAT_CHANCE[season]) {
     picks.push(pickRandom(coatPool));
+  }
+
+  return picks;
+}
+
+// 一套最多一件鮮豔色，其他用中性或柔和色襯托
+function isColorBalanced(picks) {
+  return picks.filter((item) => getMeta(item)?.tone === '鮮豔').length <= 1;
+}
+
+function drawOutfit() {
+  const season = getCurrentSeason();
+  const available = getOwnedItems();
+  const byCategory = (category) => {
+    const all = available.filter((item) => item.category === category);
+    const inSeason = all.filter((item) => isInSeason(item, season));
+    return inSeason.length > 0 ? inSeason : all;
+  };
+
+  const pools = {
+    dressPool: byCategory('洋裝'),
+    topPool: byCategory('上衣'),
+    bottomPool: byCategory('下身'),
+    coatPool: byCategory('外套'),
+  };
+
+  let picks = pickOutfitOnce(pools, season);
+  for (let attempt = 1; attempt < MAX_OUTFIT_ATTEMPTS && !isColorBalanced(picks); attempt += 1) {
+    picks = pickOutfitOnce(pools, season);
   }
 
   if (picks.length === 0) {
@@ -426,7 +525,7 @@ function drawOutfit() {
     return;
   }
 
-  renderOutfitCards(picks);
+  renderOutfitCards(picks, season);
 }
 
 function getTodayKey() {
@@ -470,8 +569,12 @@ function pickDailyItems(todayKey) {
   const recentIds = getRecentlyRecommendedIds(todayKey);
   const random = createSeededRandom(todayKey);
 
-  let pool = items
-    .filter((item) => !soldItems.includes(item.id))
+  const season = getCurrentSeason();
+  const owned = getOwnedItems();
+  const inSeason = owned.filter((item) => isInSeason(item, season));
+  const candidates = inSeason.length >= DAILY_PICK_COUNT ? inSeason : owned;
+
+  let pool = candidates
     .map((item) => {
       const views = viewCounts[item.id] || 0;
       // 越少被點開的權重越高，完全沒看過的再加成，最近推薦過的降權
@@ -612,6 +715,117 @@ function renderSpending() {
   `;
 }
 
+function toColorLabel(color) {
+  return color.endsWith('色') ? color : `${color}色`;
+}
+
+function renderPalette() {
+  if (!colorChipsEl) return;
+
+  const owned = getOwnedItems();
+  const tagged = owned.filter((item) => getMeta(item));
+  const missing = owned.length - tagged.length;
+
+  metaMissingEl.classList.toggle('hidden', missing === 0);
+  metaMissingEl.textContent = `還有 ${missing} 件沒有顏色與季節資料，重新產生 metadata.json 後就會出現在這裡。`;
+
+  if (tagged.length === 0) {
+    paletteInsightEl.textContent = '';
+    colorChipsEl.innerHTML = '';
+    swatchWallEl.innerHTML = '';
+    return;
+  }
+
+  const counts = {};
+  tagged.forEach((item) => {
+    const { color } = getMeta(item);
+    counts[color] = (counts[color] || 0) + 1;
+  });
+  const colors = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+  colorChipsEl.innerHTML = colors
+    .map(
+      (color) => `
+        <button type="button" class="color-chip ${colorFilter === color ? 'active' : ''}" data-color="${color}">
+          <span class="color-dot" style="background:${COLOR_SWATCHES[color]}"></span>${color}<small>${counts[color]}</small>
+        </button>
+      `
+    )
+    .join('');
+
+  const sorted = [...tagged].sort((a, b) => {
+    const metaA = getMeta(a);
+    const metaB = getMeta(b);
+    const byFamily = COLOR_ORDER.indexOf(metaA.color) - COLOR_ORDER.indexOf(metaB.color);
+    return byFamily || getHexLightness(metaA.hex) - getHexLightness(metaB.hex);
+  });
+
+  swatchWallEl.innerHTML = sorted
+    .map((item) => {
+      const meta = getMeta(item);
+      const dimmed = colorFilter && meta.color !== colorFilter;
+      return `<button type="button" class="swatch ${dimmed ? 'dimmed' : ''}" style="background:${meta.hex}" data-swatch-id="${item.id}" title="${item.name}" aria-label="${item.name}"></button>`;
+    })
+    .join('');
+
+  const top = colors[0];
+  const neutralCount = tagged.filter((item) => getMeta(item).tone === '中性').length;
+  const neutralPercent = Math.round((neutralCount / tagged.length) * 100);
+  paletteInsightEl.textContent = `${toColorLabel(top)}最多（${counts[top]} 件）・中性色佔 ${neutralPercent}%`;
+}
+
+function renderSeasons() {
+  if (!seasonBarsEl) return;
+
+  const now = getCurrentSeason();
+  const tagged = getOwnedItems().filter((item) => getMeta(item));
+
+  if (tagged.length === 0) {
+    seasonInsightEl.textContent = '';
+    seasonBarsEl.innerHTML = '';
+    return;
+  }
+
+  const counts = {};
+  SEASONS.forEach((season) => {
+    counts[season] = tagged.filter((item) => getMeta(item).seasons.includes(season)).length;
+  });
+  const maxCount = Math.max(1, ...Object.values(counts));
+  const fewest = SEASONS.reduce((least, season) => (counts[season] < counts[least] ? season : least));
+
+  seasonBarsEl.innerHTML = SEASONS.map(
+    (season) => `
+      <div class="stat-bar-row ${seasonFilter === season ? 'active' : ''}" data-season="${season}" role="button" tabindex="0">
+        <span class="stat-bar-label">${season}${season === now ? '<span class="season-now">現在</span>' : ''}</span>
+        <div class="stat-bar-track"><div class="stat-bar-fill" style="width:${Math.round((counts[season] / maxCount) * 100)}%"></div></div>
+        <span class="stat-bar-value">${counts[season]} 件</span>
+      </div>
+    `
+  ).join('');
+
+  seasonInsightEl.textContent = `現在是${now}天，有 ${counts[now]} 件能穿・${fewest}天最少`;
+}
+
+function renderActiveFilters() {
+  const chips = [];
+  if (colorFilter) {
+    chips.push(
+      `<button type="button" data-clear="color"><span class="color-dot" style="background:${COLOR_SWATCHES[colorFilter]}"></span>顏色：${colorFilter} ✕</button>`
+    );
+  }
+  if (seasonFilter) {
+    chips.push(`<button type="button" data-clear="season">季節：${seasonFilter} ✕</button>`);
+  }
+
+  activeFiltersEl.classList.toggle('hidden', chips.length === 0);
+  activeFiltersEl.innerHTML = chips.length > 0 ? `<span>篩選中</span>${chips.join('')}` : '';
+}
+
+function scrollToCatalog() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  activeFiltersEl.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+}
+
 function renderStats() {
   if (!statsContentEl) return;
 
@@ -671,11 +885,25 @@ function render() {
   renderDailyPicks();
   renderSpending();
   renderStats();
+  renderPalette();
+  renderSeasons();
+  renderActiveFilters();
+}
+
+async function loadMetadata() {
+  try {
+    const response = await fetch('./metadata.json');
+    return response.ok ? await response.json() : {};
+  } catch (error) {
+    console.warn('metadata.json 載入失敗，顏色與季節分析會先隱藏', error);
+    return {};
+  }
 }
 
 async function init() {
   const response = await fetch('./data.json');
   items = await response.json();
+  metadata = await loadMetadata();
 
   const categories = [...new Set(items.map((item) => item.category))];
   categoryFilter.innerHTML = '<option value="all">全部</option>' + categories.map((category) => `<option value="${category}">${category}</option>`).join('');
@@ -694,6 +922,54 @@ async function init() {
     render();
   });
   drawOutfitBtnEl.addEventListener('click', drawOutfit);
+
+  modalImageEl.addEventListener('error', () => {
+    if (modalImageEl.src && !modalImageEl.src.endsWith('placeholder.svg')) {
+      modalImageEl.src = './assets/placeholder.svg';
+    }
+  });
+
+  colorChipsEl.addEventListener('click', (event) => {
+    const chip = event.target.closest('[data-color]');
+    if (!chip) return;
+    colorFilter = colorFilter === chip.dataset.color ? null : chip.dataset.color;
+    render();
+    if (colorFilter) scrollToCatalog();
+  });
+
+  swatchWallEl.addEventListener('click', (event) => {
+    const swatch = event.target.closest('[data-swatch-id]');
+    if (!swatch) return;
+    const item = items.find((entry) => entry.id === swatch.dataset.swatchId);
+    if (item) openImageModal(getImageUrl(item), item.id);
+  });
+
+  const toggleSeasonFilter = (row) => {
+    seasonFilter = seasonFilter === row.dataset.season ? null : row.dataset.season;
+    render();
+    if (seasonFilter) scrollToCatalog();
+  };
+
+  seasonBarsEl.addEventListener('click', (event) => {
+    const row = event.target.closest('[data-season]');
+    if (row) toggleSeasonFilter(row);
+  });
+
+  seasonBarsEl.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const row = event.target.closest('[data-season]');
+    if (!row) return;
+    event.preventDefault();
+    toggleSeasonFilter(row);
+  });
+
+  activeFiltersEl.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-clear]');
+    if (!button) return;
+    if (button.dataset.clear === 'color') colorFilter = null;
+    if (button.dataset.clear === 'season') seasonFilter = null;
+    render();
+  });
 
   dailyPicksEl.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-daily-id]');
