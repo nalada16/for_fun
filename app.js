@@ -31,6 +31,10 @@ const metaMissingEl = document.getElementById('metaMissing');
 const seasonBarsEl = document.getElementById('seasonBars');
 const seasonInsightEl = document.getElementById('seasonInsight');
 const activeFiltersEl = document.getElementById('activeFilters');
+const citySelectEl = document.getElementById('citySelect');
+const weatherInfoEl = document.getElementById('weatherInfo');
+const occasionPickerEl = document.getElementById('occasionPicker');
+const healthCardsEl = document.getElementById('healthCards');
 
 const COLOR_SWATCHES = {
   黑: '#1F1F1F',
@@ -57,6 +61,7 @@ let items = [];
 let metadata = {};
 let colorFilter = null;
 let seasonFilter = null;
+let idFilter = null;
 let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 let orders = JSON.parse(localStorage.getItem('orders') || '[]');
 let soldItems = JSON.parse(localStorage.getItem('soldItems') || '[]');
@@ -289,8 +294,9 @@ function getFilteredItems() {
     const matchesSold = !hideSold || !soldItems.includes(item.id);
     const matchesColor = !colorFilter || (meta && meta.color === colorFilter);
     const matchesSeason = !seasonFilter || (meta && meta.seasons.includes(seasonFilter));
+    const matchesIds = !idFilter || idFilter.ids.has(item.id);
 
-    return matchesQuery && matchesCategory && matchesSold && matchesColor && matchesSeason;
+    return matchesQuery && matchesCategory && matchesSold && matchesColor && matchesSeason && matchesIds;
   });
 
   if (sortOrder === 'price-asc') {
@@ -444,9 +450,11 @@ function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-function renderOutfitCards(picks, season) {
+function renderOutfitCards(picks, { label, occasion, notes }) {
   const { total } = calculateTotal(picks);
+  const occasionText = occasion === 'all' ? '' : `・${OCCASIONS[occasion].label}`;
   outfitResultEl.innerHTML = `
+    ${notes.map((note) => `<p class="outfit-note">${note}</p>`).join('')}
     <div class="outfit-cards">
       ${picks
         .map(
@@ -463,14 +471,309 @@ function renderOutfitCards(picks, season) {
         )
         .join('')}
     </div>
-    <div class="outfit-total">${season}季穿搭・共 ${picks.length} 件・<strong>${formatMoney(total)}</strong></div>
+    <div class="outfit-total">${label}${occasionText}・共 ${picks.length} 件・<strong>${formatMoney(total)}</strong></div>
   `;
 }
 
 const COAT_CHANCE = { 春: 0.5, 夏: 0.15, 秋: 0.6, 冬: 1 };
 const MAX_OUTFIT_ATTEMPTS = 30;
 
-function pickOutfitOnce(pools, season) {
+const OCCASIONS = {
+  all: { label: '不限', styles: null },
+  work: { label: '上班', styles: ['正式', '優雅'] },
+  date: { label: '約會', styles: ['甜美', '優雅', '復古'] },
+  trip: { label: '出遊度假', styles: ['度假', '休閒', '日常'] },
+  daily: { label: '日常', styles: ['日常', '休閒', '個性'] },
+};
+const savedOccasion = localStorage.getItem('outfitOccasion');
+let outfitOccasion = Object.prototype.hasOwnProperty.call(OCCASIONS, savedOccasion) ? savedOccasion : 'all';
+let hasDrawnOutfit = false;
+
+const CITIES = [
+  { name: '台北', lat: 25.033, lon: 121.5654 },
+  { name: '新北', lat: 25.012, lon: 121.4657 },
+  { name: '基隆', lat: 25.1276, lon: 121.7392 },
+  { name: '桃園', lat: 24.9936, lon: 121.301 },
+  { name: '新竹', lat: 24.8138, lon: 120.9675 },
+  { name: '苗栗', lat: 24.5602, lon: 120.8214 },
+  { name: '台中', lat: 24.1477, lon: 120.6736 },
+  { name: '彰化', lat: 24.0809, lon: 120.5387 },
+  { name: '南投', lat: 23.9097, lon: 120.6839 },
+  { name: '雲林', lat: 23.7092, lon: 120.4313 },
+  { name: '嘉義', lat: 23.4801, lon: 120.4491 },
+  { name: '台南', lat: 22.9999, lon: 120.227 },
+  { name: '高雄', lat: 22.6273, lon: 120.3014 },
+  { name: '屏東', lat: 22.6727, lon: 120.4883 },
+  { name: '宜蘭', lat: 24.7021, lon: 121.7378 },
+  { name: '花蓮', lat: 23.9872, lon: 121.6016 },
+  { name: '台東', lat: 22.7583, lon: 121.1444 },
+  { name: '澎湖', lat: 23.5711, lon: 119.5793 },
+  { name: '金門', lat: 24.4493, lon: 118.3767 },
+];
+const WEATHER_CACHE_MS = 60 * 60 * 1000;
+const savedCity = localStorage.getItem('weatherCity');
+let weatherCity = CITIES.some((city) => city.name === savedCity) ? savedCity : '台北';
+let weather = null;
+let weatherStatus = 'loading';
+let weatherRequestId = 0;
+
+const WEATHER_CODES = [
+  [[0], '☀️', '晴天'],
+  [[1, 2], '🌤️', '晴時多雲'],
+  [[3], '☁️', '陰天'],
+  [[45, 48], '🌫️', '有霧'],
+  [[51, 53, 55, 56, 57], '🌦️', '毛毛雨'],
+  [[61, 63, 65, 66, 67, 80, 81, 82], '🌧️', '下雨'],
+  [[71, 73, 75, 77, 85, 86], '❄️', '下雪'],
+  [[95, 96, 99], '⛈️', '雷雨'],
+];
+
+// 白天最高體感溫度決定上衣、下身、洋裝的厚度（metadata 的 warmth 1–5）
+const WARMTH_BY_TEMP = [
+  { from: 28, range: [1, 2], text: '很熱，挑最薄的' },
+  { from: 23, range: [2, 3], text: '溫暖，穿薄的就好' },
+  { from: 17, range: [2, 3], text: '微涼' },
+  { from: 12, range: [2, 4], text: '涼，穿厚一點' },
+  { from: -Infinity, range: [3, 5], text: '冷，穿保暖的' },
+];
+
+function describeWeatherCode(code) {
+  const found = WEATHER_CODES.find(([codes]) => codes.includes(code));
+  return found ? { icon: found[1], text: found[2] } : { icon: '🌡️', text: '' };
+}
+
+// 最低體感溫度和早晚溫差決定要不要外套、外套多厚
+function getClothingPlan(forecast) {
+  const base = WARMTH_BY_TEMP.find((tier) => forecast.feelsMax >= tier.from);
+  const swing = Math.round(forecast.feelsMax - forecast.feelsMin);
+  let coat = null;
+  let coatText = '不需要外套';
+
+  if (forecast.feelsMin < 10) {
+    coat = [4, 5];
+    coatText = '一定要穿厚外套';
+  } else if (forecast.feelsMin < 15) {
+    coat = [3, 5];
+    coatText = '要穿外套';
+  } else if (forecast.feelsMin < 20) {
+    coat = [2, 3];
+    coatText = '帶件薄外套';
+  } else if (forecast.feelsMin < 26 && swing >= 8) {
+    coat = [2, 3];
+    coatText = `早晚溫差 ${swing} 度，帶件薄外套`;
+  }
+
+  return { range: base.range, baseText: base.text, coat, coatText };
+}
+
+function readWeatherCache() {
+  const cache = JSON.parse(localStorage.getItem('weatherCache') || 'null');
+  const fresh =
+    cache &&
+    cache.city === weatherCity &&
+    cache.date === getTodayKey() &&
+    Date.now() - cache.fetchedAt < WEATHER_CACHE_MS;
+  return fresh ? cache.weather : null;
+}
+
+async function loadWeather() {
+  const requestId = ++weatherRequestId;
+  const cached = readWeatherCache();
+  if (cached) {
+    weather = cached;
+    weatherStatus = 'ready';
+    renderWeather();
+    return;
+  }
+
+  weather = null;
+  weatherStatus = 'loading';
+  renderWeather();
+
+  const city = CITIES.find((entry) => entry.name === weatherCity);
+  const url =
+    `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}` +
+    '&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max' +
+    '&timezone=Asia%2FTaipei&forecast_days=1';
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const { daily } = await response.json();
+    const forecast = {
+      city: city.name,
+      code: daily.weather_code[0],
+      tempMin: daily.temperature_2m_min[0],
+      tempMax: daily.temperature_2m_max[0],
+      feelsMin: daily.apparent_temperature_min[0],
+      feelsMax: daily.apparent_temperature_max[0],
+      rain: daily.precipitation_probability_max?.[0] ?? null,
+    };
+    if ([forecast.tempMin, forecast.tempMax, forecast.feelsMin, forecast.feelsMax].some((value) => typeof value !== 'number')) {
+      throw new Error('天氣資料不完整');
+    }
+    if (requestId !== weatherRequestId) return;
+
+    weather = forecast;
+    weatherStatus = 'ready';
+    localStorage.setItem(
+      'weatherCache',
+      JSON.stringify({ city: city.name, date: getTodayKey(), fetchedAt: Date.now(), weather: forecast })
+    );
+  } catch (error) {
+    if (requestId !== weatherRequestId) return;
+    console.warn('天氣載入失敗，穿搭改依季節挑選', error);
+    weatherStatus = 'error';
+  }
+  renderWeather();
+}
+
+function renderCityOptions() {
+  if (!citySelectEl) return;
+  citySelectEl.innerHTML = CITIES.map((city) => `<option value="${city.name}">${city.name}</option>`).join('');
+  citySelectEl.value = weatherCity;
+}
+
+function renderWeather() {
+  if (!weatherInfoEl) return;
+
+  if (weatherStatus === 'loading') {
+    weatherInfoEl.innerHTML = `<p class="weather-status">正在查${weatherCity}的天氣⋯</p>`;
+    return;
+  }
+
+  if (weatherStatus === 'error' || !weather) {
+    weatherInfoEl.innerHTML = `
+      <p class="weather-status">
+        查不到${weatherCity}的天氣，先依季節（${getCurrentSeason()}天）搭配。
+        <button type="button" class="btn-secondary weather-retry" data-weather-retry>重試</button>
+      </p>
+    `;
+    return;
+  }
+
+  const { icon, text } = describeWeatherCode(weather.code);
+  const plan = getClothingPlan(weather);
+  const rainText = weather.rain >= 50 ? `。降雨機率 ${weather.rain}%，記得帶傘` : '';
+  weatherInfoEl.innerHTML = `
+    <div class="weather-main">
+      <span class="weather-icon" aria-hidden="true">${icon}</span>
+      <div>
+        <strong class="weather-temp">${Math.round(weather.tempMin)}–${Math.round(weather.tempMax)}°C</strong>
+        <span class="weather-desc">${text ? `${text}・` : ''}體感 ${Math.round(weather.feelsMin)}–${Math.round(weather.feelsMax)}°C</span>
+      </div>
+    </div>
+    <p class="weather-advice">${plan.baseText}，${plan.coatText}${rainText}</p>
+  `;
+}
+
+function renderOccasionPicker() {
+  if (!occasionPickerEl) return;
+  occasionPickerEl.innerHTML = Object.entries(OCCASIONS)
+    .map(
+      ([key, { label }]) =>
+        `<button type="button" class="occasion-chip ${key === outfitOccasion ? 'active' : ''}" data-occasion="${key}" aria-pressed="${key === outfitOccasion}">${label}</button>`
+    )
+    .join('');
+}
+
+function matchesWarmth(item, [low, high]) {
+  const meta = getMeta(item);
+  return !meta || (meta.warmth >= low && meta.warmth <= high);
+}
+
+function matchesOccasion(item, occasion) {
+  const { styles } = OCCASIONS[occasion];
+  const meta = getMeta(item);
+  return !styles || !meta || meta.styles.some((style) => styles.includes(style));
+}
+
+function getOutfitClimate() {
+  if (weatherStatus === 'ready' && weather) {
+    return {
+      mode: 'weather',
+      label: `${weather.city} ${Math.round(weather.tempMin)}–${Math.round(weather.tempMax)}°C`,
+      plan: getClothingPlan(weather),
+    };
+  }
+  const season = getCurrentSeason();
+  return { mode: 'season', label: `${season}季穿搭`, season };
+}
+
+// 配不出來時依序放寬：厚度放寬一級 → 不看場合 → 厚度再放寬 → 全部衣服
+function getBaseSteps(climate, occasion) {
+  const climateFits =
+    climate.mode === 'weather'
+      ? [0, 1, 2].map((widen) => {
+          const range = [climate.plan.range[0] - widen, climate.plan.range[1] + widen];
+          return {
+            fit: (item) => matchesWarmth(item, range),
+            note: widen > 0 ? '符合今天溫度的衣服不多，放寬了厚度' : null,
+          };
+        })
+      : [{ fit: (item) => isInSeason(item, climate.season), note: null }];
+
+  const steps = [];
+  if (occasion !== 'all') {
+    climateFits.slice(0, 2).forEach(({ fit, note }) => {
+      steps.push({ fit: (item) => fit(item) && matchesOccasion(item, occasion), notes: note ? [note] : [] });
+    });
+  }
+
+  const when = climate.mode === 'weather' ? '今天天氣' : `${climate.season}天`;
+  const occasionNote = occasion === 'all' ? null : `${when}適合「${OCCASIONS[occasion].label}」的衣服不夠，改從所有風格挑`;
+  climateFits.forEach(({ fit, note }) => {
+    steps.push({ fit, notes: [occasionNote, note].filter(Boolean) });
+  });
+  steps.push({ fit: () => true, notes: ['符合條件的衣服不夠，改從全部衣服挑'] });
+  return steps;
+}
+
+function getBasePools(available, climate, occasion) {
+  const steps = getBaseSteps(climate, occasion);
+  let result = null;
+
+  for (const { fit, notes } of steps) {
+    const inCategory = (category) => available.filter((item) => item.category === category && fit(item));
+    result = {
+      pools: { dressPool: inCategory('洋裝'), topPool: inCategory('上衣'), bottomPool: inCategory('下身') },
+      notes,
+    };
+    const { dressPool, topPool, bottomPool } = result.pools;
+    if (dressPool.length > 0 || (topPool.length > 0 && bottomPool.length > 0)) {
+      return result;
+    }
+  }
+  return result;
+}
+
+// 外套只要符合溫度或季節，場合是加分：有符合場合的外套就優先挑
+function getCoatChoice(available, climate, occasion) {
+  const coats = available.filter((item) => item.category === '外套');
+  let pool;
+  let wanted;
+
+  if (climate.mode === 'weather') {
+    wanted = Boolean(climate.plan.coat);
+    if (wanted) {
+      const [low, high] = climate.plan.coat;
+      pool = [0, 1, 2]
+        .map((widen) => coats.filter((item) => matchesWarmth(item, [low - widen, high + widen])))
+        .find((list) => list.length > 0) || coats;
+    } else {
+      pool = [];
+    }
+  } else {
+    const inSeason = coats.filter((item) => isInSeason(item, climate.season));
+    pool = inSeason.length > 0 ? inSeason : coats;
+    wanted = Math.random() < COAT_CHANCE[climate.season];
+  }
+
+  const forOccasion = pool.filter((item) => matchesOccasion(item, occasion));
+  return { wanted, pool: forOccasion.length > 0 ? forOccasion : pool };
+}
+
+function pickOutfitOnce(pools, withCoat) {
   const { dressPool, topPool, bottomPool, coatPool } = pools;
   const picks = [];
   const useDress = dressPool.length > 0 && (topPool.length === 0 || bottomPool.length === 0 || Math.random() < 0.5);
@@ -487,7 +790,7 @@ function pickOutfitOnce(pools, season) {
     picks.push(pickRandom(bottomPool));
   }
 
-  if (coatPool.length > 0 && Math.random() < COAT_CHANCE[season]) {
+  if (withCoat && coatPool.length > 0) {
     picks.push(pickRandom(coatPool));
   }
 
@@ -500,24 +803,18 @@ function isColorBalanced(picks) {
 }
 
 function drawOutfit() {
-  const season = getCurrentSeason();
+  hasDrawnOutfit = true;
   const available = getOwnedItems();
-  const byCategory = (category) => {
-    const all = available.filter((item) => item.category === category);
-    const inSeason = all.filter((item) => isInSeason(item, season));
-    return inSeason.length > 0 ? inSeason : all;
-  };
+  const climate = getOutfitClimate();
+  const occasion = outfitOccasion;
 
-  const pools = {
-    dressPool: byCategory('洋裝'),
-    topPool: byCategory('上衣'),
-    bottomPool: byCategory('下身'),
-    coatPool: byCategory('外套'),
-  };
+  const { pools: basePools, notes } = getBasePools(available, climate, occasion);
+  const coat = getCoatChoice(available, climate, occasion);
+  const pools = { ...basePools, coatPool: coat.pool };
 
-  let picks = pickOutfitOnce(pools, season);
+  let picks = pickOutfitOnce(pools, coat.wanted);
   for (let attempt = 1; attempt < MAX_OUTFIT_ATTEMPTS && !isColorBalanced(picks); attempt += 1) {
-    picks = pickOutfitOnce(pools, season);
+    picks = pickOutfitOnce(pools, coat.wanted);
   }
 
   if (picks.length === 0) {
@@ -525,7 +822,7 @@ function drawOutfit() {
     return;
   }
 
-  renderOutfitCards(picks, season);
+  renderOutfitCards(picks, { label: climate.label, occasion, notes });
 }
 
 function getTodayKey() {
@@ -806,6 +1103,226 @@ function renderSeasons() {
   seasonInsightEl.textContent = `現在是${now}天，有 ${counts[now]} 件能穿・${fewest}天最少`;
 }
 
+const DUPLICATE_MIN = 3;
+const HARD_TO_MATCH_LIMIT = 10;
+const RARE_STYLE_LIMIT = 10;
+const SLEEVE_LABELS = ['無袖', '短袖', '七分袖', '長袖'];
+let healthTargets = {};
+
+function getItemTypeLabel(item) {
+  const meta = getMeta(item);
+  const sleeve = SLEEVE_LABELS.includes(meta.sleeve) ? meta.sleeve : '';
+  return `${toColorLabel(meta.color)}${sleeve}${item.category}`;
+}
+
+function getDuplicateGroups(tagged) {
+  const groups = new Map();
+  tagged.forEach((item) => {
+    const label = getItemTypeLabel(item);
+    groups.set(label, [...(groups.get(label) || []), item.id]);
+  });
+  return [...groups]
+    .map(([label, ids]) => ({ label, ids }))
+    .filter((group) => group.ids.length >= DUPLICATE_MIN)
+    .sort((a, b) => b.ids.length - a.ids.length)
+    .slice(0, 3);
+}
+
+function canPair(a, b) {
+  const seasonsA = getMeta(a).seasons;
+  return getMeta(b).seasons.some((season) => seasonsA.includes(season)) && isColorBalanced([a, b]);
+}
+
+// 一季能配幾套 = 能互搭的上衣×下身組合 + 洋裝件數
+function getSeasonOutfitCounts(tagged) {
+  return SEASONS.map((season) => {
+    const inSeason = (category) => tagged.filter((item) => item.category === category && getMeta(item).seasons.includes(season));
+    const tops = inSeason('上衣');
+    const bottoms = inSeason('下身');
+    const dresses = inSeason('洋裝');
+    const pairs = tops.reduce((sum, top) => sum + bottoms.filter((bottom) => isColorBalanced([top, bottom])).length, 0);
+    return { season, tops: tops.length, bottoms: bottoms.length, dresses: dresses.length, pairs, total: pairs + dresses.length };
+  });
+}
+
+function getHardToMatch(tagged) {
+  const tops = tagged.filter((item) => item.category === '上衣');
+  const bottoms = tagged.filter((item) => item.category === '下身');
+  const withCounts = [
+    ...tops.map((item) => ({ item, count: bottoms.filter((other) => canPair(item, other)).length, partner: '下身' })),
+    ...bottoms.map((item) => ({ item, count: tops.filter((other) => canPair(item, other)).length, partner: '上衣' })),
+  ];
+  return withCounts.filter((entry) => entry.count < HARD_TO_MATCH_LIMIT).sort((a, b) => a.count - b.count);
+}
+
+function getStyleCounts(tagged) {
+  const counts = {};
+  tagged.forEach((item) => {
+    getMeta(item).styles.forEach((style) => {
+      counts[style] = (counts[style] || 0) + 1;
+    });
+  });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+}
+
+function renderDuplicateCard(tagged) {
+  const groups = getDuplicateGroups(tagged);
+  if (groups.length === 0) {
+    return `
+      <article class="health-card">
+        <h3>重複最多的款式</h3>
+        <p class="health-headline">沒有重複 ${DUPLICATE_MIN} 件以上的款式</p>
+      </article>
+    `;
+  }
+
+  groups.forEach((group, index) => {
+    healthTargets[`dup-${index}`] = { label: group.label, ids: group.ids };
+  });
+  const [top] = groups;
+  return `
+    <article class="health-card">
+      <h3>重複最多的款式</h3>
+      <p class="health-headline">${top.label} ${top.ids.length} 件</p>
+      <div class="health-list">
+        ${groups
+          .map(
+            (group, index) =>
+              `<button type="button" class="health-row" data-health-key="dup-${index}"><span>${group.label}</span><strong>${group.ids.length} 件</strong></button>`
+          )
+          .join('')}
+      </div>
+      <p class="health-detail">想買新的之前，先看看已經有的。</p>
+    </article>
+  `;
+}
+
+function renderSeasonComboCard(tagged) {
+  const counts = getSeasonOutfitCounts(tagged);
+  const fewest = counts.reduce((least, entry) => (entry.total < least.total ? entry : least));
+  const detail =
+    fewest.dresses > fewest.pairs
+      ? `${fewest.season}天上衣 ${fewest.tops} 件、下身 ${fewest.bottoms} 件，主要靠 ${fewest.dresses} 件洋裝。`
+      : `${fewest.season}天上衣 ${fewest.tops} 件、下身 ${fewest.bottoms} 件、洋裝 ${fewest.dresses} 件。`;
+
+  return `
+    <article class="health-card">
+      <h3>每一季能配出幾套</h3>
+      <p class="health-headline">${fewest.season}天最少：${fewest.total} 套</p>
+      <div class="health-seasons">
+        ${counts
+          .map(
+            (entry) => `
+              <button type="button" class="health-season ${entry.season === fewest.season ? 'fewest' : ''}" data-health-season="${entry.season}">
+                <strong>${entry.total}</strong><span>${entry.season}</span>
+              </button>
+            `
+          )
+          .join('')}
+      </div>
+      <p class="health-detail">${detail}套數是能互搭的上衣×下身，加上洋裝件數。</p>
+    </article>
+  `;
+}
+
+function renderHardToMatchCard(tagged) {
+  const hard = getHardToMatch(tagged);
+  if (hard.length === 0) {
+    return `
+      <article class="health-card">
+        <h3>最難搭的衣服</h3>
+        <p class="health-headline">每件都能搭 ${HARD_TO_MATCH_LIMIT} 件以上</p>
+        <p class="health-detail">上衣和下身都找得到同季節、配色不衝突的搭配。</p>
+      </article>
+    `;
+  }
+
+  healthTargets.hard = { label: '最難搭的衣服', ids: hard.map((entry) => entry.item.id) };
+  const counts = hard.map((entry) => entry.count);
+  const countText = Math.min(...counts) === Math.max(...counts) ? `${counts[0]}` : `${Math.min(...counts)}–${Math.max(...counts)}`;
+  return `
+    <article class="health-card">
+      <h3>最難搭的衣服</h3>
+      <p class="health-headline">${hard.length} 件只搭得到 ${countText} 件</p>
+      <ul class="health-names">
+        ${hard
+          .slice(0, 5)
+          .map((entry) => `<li><span>${entry.item.name}</span><small>可搭 ${entry.count} 件${entry.partner}</small></li>`)
+          .join('')}
+      </ul>
+      <button type="button" class="btn-secondary health-more" data-health-key="hard">看這 ${hard.length} 件</button>
+    </article>
+  `;
+}
+
+function renderStyleCard(tagged) {
+  const styles = getStyleCounts(tagged);
+  if (styles.length === 0) return '';
+
+  styles.forEach(([style]) => {
+    healthTargets[`style-${style}`] = {
+      label: `風格：${style}`,
+      ids: tagged.filter((item) => getMeta(item).styles.includes(style)).map((item) => item.id),
+    };
+  });
+  const [first, second] = styles;
+  const persona = second && second[1] >= first[1] * 0.6 ? `${first[0]}${second[0]}系` : `${first[0]}系`;
+  const rare = styles.filter(([, count]) => count < RARE_STYLE_LIMIT).map(([style]) => style);
+
+  return `
+    <article class="health-card">
+      <h3>你的風格</h3>
+      <p class="health-headline">${persona}</p>
+      <div class="color-chips health-styles">
+        ${styles
+          .map(([style, count]) => `<button type="button" class="color-chip" data-health-key="style-${style}">${style}<small>${count}</small></button>`)
+          .join('')}
+      </div>
+      <p class="health-detail">${rare.length > 0 ? `${rare.join('、')}都不到 ${RARE_STYLE_LIMIT} 件。` : `每種風格都有 ${RARE_STYLE_LIMIT} 件以上。`}</p>
+    </article>
+  `;
+}
+
+function renderHealth() {
+  if (!healthCardsEl) return;
+
+  healthTargets = {};
+  const tagged = getOwnedItems().filter((item) => getMeta(item));
+  if (tagged.length === 0) {
+    healthCardsEl.innerHTML = '<p class="empty">還沒有衣服特徵資料（metadata.json），暫時無法健檢。</p>';
+    return;
+  }
+
+  healthCardsEl.innerHTML = [
+    renderDuplicateCard(tagged),
+    renderSeasonComboCard(tagged),
+    renderHardToMatchCard(tagged),
+    renderStyleCard(tagged),
+  ].join('');
+}
+
+function resetCatalogFilters() {
+  colorFilter = null;
+  seasonFilter = null;
+  idFilter = null;
+  categoryFilter.value = 'all';
+  searchInput.value = '';
+}
+
+function showHealthTarget(target) {
+  resetCatalogFilters();
+  idFilter = { label: target.label, ids: new Set(target.ids) };
+  render();
+  goToFilteredCatalog();
+}
+
+function showSeasonFromHealth(season) {
+  resetCatalogFilters();
+  seasonFilter = season;
+  render();
+  goToFilteredCatalog();
+}
+
 function renderActiveFilters() {
   const chips = [];
   if (colorFilter) {
@@ -815,6 +1332,9 @@ function renderActiveFilters() {
   }
   if (seasonFilter) {
     chips.push(`<button type="button" data-clear="season">季節：${seasonFilter} ✕</button>`);
+  }
+  if (idFilter) {
+    chips.push(`<button type="button" data-clear="ids">${idFilter.label} ✕</button>`);
   }
 
   activeFiltersEl.classList.toggle('hidden', chips.length === 0);
@@ -938,6 +1458,7 @@ function render() {
   renderStats();
   renderPalette();
   renderSeasons();
+  renderHealth();
   renderActiveFilters();
 }
 
@@ -977,6 +1498,40 @@ async function init() {
   });
   drawOutfitBtnEl.addEventListener('click', drawOutfit);
 
+  renderOccasionPicker();
+  occasionPickerEl.addEventListener('click', (event) => {
+    const chip = event.target.closest('[data-occasion]');
+    if (!chip || chip.dataset.occasion === outfitOccasion) return;
+    outfitOccasion = chip.dataset.occasion;
+    localStorage.setItem('outfitOccasion', outfitOccasion);
+    renderOccasionPicker();
+    if (hasDrawnOutfit) drawOutfit();
+  });
+
+  renderCityOptions();
+  citySelectEl.addEventListener('change', async () => {
+    weatherCity = citySelectEl.value;
+    localStorage.setItem('weatherCity', weatherCity);
+    await loadWeather();
+    if (hasDrawnOutfit) drawOutfit();
+  });
+  weatherInfoEl.addEventListener('click', async (event) => {
+    if (!event.target.closest('[data-weather-retry]')) return;
+    await loadWeather();
+    if (hasDrawnOutfit) drawOutfit();
+  });
+  loadWeather();
+
+  healthCardsEl.addEventListener('click', (event) => {
+    const seasonButton = event.target.closest('[data-health-season]');
+    if (seasonButton) {
+      showSeasonFromHealth(seasonButton.dataset.healthSeason);
+      return;
+    }
+    const target = healthTargets[event.target.closest('[data-health-key]')?.dataset.healthKey];
+    if (target) showHealthTarget(target);
+  });
+
   modalImageEl.addEventListener('error', () => {
     if (modalImageEl.src && !modalImageEl.src.endsWith('placeholder.svg')) {
       modalImageEl.src = './assets/placeholder.svg';
@@ -987,6 +1542,7 @@ async function init() {
     const chip = event.target.closest('[data-color]');
     if (!chip) return;
     colorFilter = colorFilter === chip.dataset.color ? null : chip.dataset.color;
+    if (colorFilter) idFilter = null;
     render();
     if (colorFilter) goToFilteredCatalog();
   });
@@ -1000,6 +1556,7 @@ async function init() {
 
   const toggleSeasonFilter = (row) => {
     seasonFilter = seasonFilter === row.dataset.season ? null : row.dataset.season;
+    if (seasonFilter) idFilter = null;
     render();
     if (seasonFilter) goToFilteredCatalog();
   };
@@ -1022,6 +1579,7 @@ async function init() {
     if (!button) return;
     if (button.dataset.clear === 'color') colorFilter = null;
     if (button.dataset.clear === 'season') seasonFilter = null;
+    if (button.dataset.clear === 'ids') idFilter = null;
     render();
   });
 

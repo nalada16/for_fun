@@ -116,14 +116,23 @@
         <header class="hero hero--compact">
           <p class="eyebrow">Outfit</p>
           <h1>今日穿搭</h1>
-          <p class="hero-copy">依照現在的季節，從衣櫃裡幫你配一套。</p>
+          <p class="hero-copy">依照今天的天氣和場合，從衣櫃裡幫你配一套。</p>
         </header>
+
+        <section class="weather-panel">
+          <div class="section-header">
+            <h2>🌡️ 今天天氣</h2>
+            <select id="citySelect" class="city-select" aria-label="選擇城市"></select>
+          </div>
+          <div id="weatherInfo" class="weather-info" aria-live="polite"></div>
+        </section>
 
         <section class="outfit-panel">
           <div class="section-header">
             <h2>🎲 今日穿搭</h2>
             <span class="section-subtitle">隨機幫你配一套</span>
           </div>
+          <div id="occasionPicker" class="occasion-picker" role="group" aria-label="場合"></div>
           <div id="outfitResult" class="outfit-result">
             <p class="empty">按下方按鈕，抽一套今天的穿搭吧！</p>
           </div>
@@ -137,10 +146,18 @@
         <header class="hero hero--compact">
           <p class="eyebrow">Insights</p>
           <h1>衣櫃分析</h1>
-          <p class="hero-copy">看看你的衣櫃有哪些顏色、適合哪些季節。點顏色或季節可以直接看那些衣服。</p>
+          <p class="hero-copy">看看衣櫃哪裡重複、哪一季最缺、有哪些顏色。點項目可以直接看那些衣服。</p>
         </header>
 
         <div class="insights-grid">
+          <section class="health-panel">
+            <div class="section-header">
+              <h2>🩺 衣櫃健檢</h2>
+              <span class="section-subtitle">點項目可以看那些衣服</span>
+            </div>
+            <div id="healthCards" class="health-cards"></div>
+          </section>
+
           <section class="stats-panel">
             <div class="section-header">
               <h2>📊 衣櫃統計</h2>
